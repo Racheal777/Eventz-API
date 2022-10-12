@@ -58,4 +58,16 @@ class EventTest extends TestCase
         $this->assertDatabaseCount('events', 3);
         $response->assertStatus(200);
     }
+
+
+    //delete a data
+    public function test_deletes_an_event()
+    {
+        $event = Event::factory()->create();
+        $response = $this->json('DELETE', route('events.destroy', $event));
+
+       // $this->assertDatabaseCount('events', 0);
+        $response->assertStatus(200); 
+
+    }
 }
