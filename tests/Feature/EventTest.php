@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class EventTest extends TestCase
@@ -20,7 +22,15 @@ class EventTest extends TestCase
     //test to create an event
     public function test_creates_an_event()
     {
-        //create the admin
+        //create the user
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+        $agent = $user->role;
+
+        if($agent === 'admin')
+
+        //check if the user is an admin
 
         //create the event
         $payload = [
@@ -31,13 +41,16 @@ class EventTest extends TestCase
             'organizer' => 'Charter House',
             'category' => 'general',
             'flier' => fake()->image(),
+            'user_id' => $user
 
         ];
+
 
         //response
         $response = $this->json('POST', route('events.store'), $payload);
 
         //dd($response);
+        
         $this->assertDatabaseCount('events', 1);
         $this->assertDatabaseHas('events', [
             'name'=> 'VGMA'
@@ -53,7 +66,7 @@ class EventTest extends TestCase
     {
          Event::factory(3)->create();
 
-        $response = $this->json('GET', route('events.index'));
+        $response = $this->json('GET', route('events.allEvents'));
 
         $this->assertDatabaseCount('events', 3);
         $response->assertStatus(200);
@@ -63,11 +76,33 @@ class EventTest extends TestCase
     //delete a data
     public function test_deletes_an_event()
     {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
         $event = Event::factory()->create();
         $response = $this->json('DELETE', route('events.destroy', $event));
 
        // $this->assertDatabaseCount('events', 0);
         $response->assertStatus(200); 
+
+    }
+
+
+    //test to get todays events
+    public function test_list_admins_events()
+    {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
+        Event::factory()->create();
+
+        $response = $this->json('GET', route('admin'));
+
+        $this->assertDatabaseCount('events', 1);
+        $response->assertStatus(200);
+
 
     }
 }

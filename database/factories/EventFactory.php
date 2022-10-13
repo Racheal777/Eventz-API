@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,6 +25,7 @@ class EventFactory extends Factory
             'organizer' => fake()->name(),
             'category' => fake()->randomElement(['entertainment', 'religious', 'educational', 'general']),
             'flier' => fake()->image(),
+            'user_id' =>User::factory()
         ];
     }
 }

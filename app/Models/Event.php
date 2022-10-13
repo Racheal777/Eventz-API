@@ -18,4 +18,9 @@ class Event extends Model
         'flier',
         'organizer'
     ];
+
+    //relationship
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

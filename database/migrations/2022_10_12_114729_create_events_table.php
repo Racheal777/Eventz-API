@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('category', ['entertainment', 'religious', 'educational', 'general']);
             $table->string('organizer')->nullable();
             $table->string('flier')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
