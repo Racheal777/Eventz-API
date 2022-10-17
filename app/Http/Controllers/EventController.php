@@ -49,24 +49,25 @@ class EventController extends Controller
     {
         //
         //check if user is an authenticated
-        $user = auth()->user();
+        
 
-        //check if user is an agent
-        $agent = $user->role;
+        // //check if user is an agent
+        // $agent = $user->role;
 
-        //if the role is user dont authorize
-        if($agent === 'user'){
+        // //if the role is user dont authorize
+        // if($agent === 'user'){
 
-           // return $user;
-            return 'not authorized';
+        //    // return $user;
+        //     return 'not authorized';
 
-        }else{
+        // }else{
 
             //return $user;
 
         
         $event = new Event();
 
+        $user = auth()->user();
         //image upload 
         //using the image trait upload single which is a function that takes the file, path and filename
       
@@ -78,7 +79,6 @@ class EventController extends Controller
             $file = $this->uploadSingle($flier, $folder, $new_name);
             $event->flier = $file;     
         }
-
 
           $event->name = $request->input('name');
           $event->location = $request->input('location');
@@ -95,7 +95,7 @@ class EventController extends Controller
             return 'nothing saved';
           };
 
-        }
+        
 
     }
 
@@ -139,16 +139,16 @@ class EventController extends Controller
     public function byAdmin(User $user)
     {
         //find if the user is authenticated
-        $user = auth()->user();
+        // $user = auth()->user();
    
-        //check if user is an agent
-        $agent = $user->role;
+        // //check if user is an agent
+        // $agent = $user->role;
 
-        //if the role is user dont authorize
-        if($agent === 'user'){
-            return 'not authorized';
+        // //if the role is user dont authorize
+        // if($agent === 'user'){
+        //     return 'not authorized';
 
-        }else{
+        // }else{
 
             //return 'yeieeiie';
              $events = DB::table('events')->where('user_id', $user->id)->get();
@@ -156,5 +156,5 @@ class EventController extends Controller
              return $events;
         }
 
-    }
+    
 }

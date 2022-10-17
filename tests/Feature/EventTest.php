@@ -26,9 +26,9 @@ class EventTest extends TestCase
         $user = User::factory()->create();
 
         Passport::actingAs($user);
-        $agent = $user->role;
+       // $agent = $user->role;
 
-        if($agent === 'admin')
+      
 
         //check if the user is an admin
 

@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('events', EventController::class)->middleware('auth:api');
+Route::apiResource('events', EventController::class)->middleware(['auth:api', 'role:admin']);
 
 Route::get('events', [EventController::class, 'allEvents'])->name('events.allEvents');
 
