@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Review;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasRoles, HasFactory, Notifiable;
+    use HasApiTokens,  HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'is_organizer',
     ];
 
     /**
@@ -46,8 +48,8 @@ class User extends Authenticatable
     ];
 
     //relationship
-    public function events()
+    public function reviews()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Review::class);
     }
 }

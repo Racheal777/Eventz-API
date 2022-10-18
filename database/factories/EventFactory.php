@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,10 +23,9 @@ class EventFactory extends Factory
             'date' => date('Y/m/d'),
             'time' => fake()->time(),
             'location' => 'Grand Arena',
-            'organizer' => fake()->name(),
             'category' => fake()->randomElement(['entertainment', 'religious', 'educational', 'general']),
             'flier' => fake()->image(),
-            'user_id' =>User::factory()
+            'organizer_id' =>Organizer::factory()
         ];
     }
 }

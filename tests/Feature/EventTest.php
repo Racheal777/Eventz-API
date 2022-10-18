@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Event;
+use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -23,9 +24,10 @@ class EventTest extends TestCase
     public function test_creates_an_event()
     {
         //create the user
-        $user = User::factory()->create();
+        //$user = User::factory()->create();
+        $organizer = Organizer::factory()->create();
 
-        Passport::actingAs($user);
+        Passport::actingAs($organizer);
        // $agent = $user->role;
 
       
@@ -38,10 +40,9 @@ class EventTest extends TestCase
             'date' => date('Y/m/d'),
             'time' => '10:00 pm',
             'location' => 'Grand Arena',
-            'organizer' => 'Charter House',
             'category' => 'general',
             'flier' => fake()->image(),
-            'user_id' => $user
+            'organizer_id' => $organizer
 
         ];
 
@@ -76,9 +77,9 @@ class EventTest extends TestCase
     //delete a data
     public function test_deletes_an_event()
     {
-        $user = User::factory()->create();
+        $organizer = Organizer::factory()->create();
 
-        Passport::actingAs($user);
+        Passport::actingAs($organizer);
 
         $event = Event::factory()->create();
         $response = $this->json('DELETE', route('events.destroy', $event));
@@ -92,9 +93,9 @@ class EventTest extends TestCase
     //test to get todays events
     public function test_list_admins_events()
     {
-        $user = User::factory()->create();
+        $organizer = Organizer::factory()->create();
 
-        Passport::actingAs($user);
+        Passport::actingAs($organizer);
 
         Event::factory()->create();
 

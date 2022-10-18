@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Organizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -45,29 +47,14 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(EventRequest $request, User $user)
     {
-        //
-        //check if user is an authenticated
-        
-
-        // //check if user is an agent
-        // $agent = $user->role;
-
-        // //if the role is user dont authorize
-        // if($agent === 'user'){
-
-        //    // return $user;
-        //     return 'not authorized';
-
-        // }else{
-
-            //return $user;
-
         
         $event = new Event();
 
-        $user = auth()->user();
+        //check the authenticated organizer
+        $organizer = auth()->user();
+
         //image upload 
         //using the image trait upload single which is a function that takes the file, path and filename
       
@@ -85,9 +72,9 @@ class EventController extends Controller
           $event->date = $request->input('date');
           $event->time = $request->input('time');
           $event->category = $request->input('category');
-          $event->organizer = $request->input('organizer');
           $event->flier = $file;
-          $event->user_id = $user->id;
+         // $event->published = $request->input('published');
+          $event->organizer_id = $organizer->id;
 
           if($event->save()){
             return $event;
@@ -136,22 +123,11 @@ class EventController extends Controller
 
 
 
-    public function byAdmin(User $user)
+    public function byAdmin(Organizer $organizer)
     {
-        //find if the user is authenticated
-        // $user = auth()->user();
-   
-        // //check if user is an agent
-        // $agent = $user->role;
-
-        // //if the role is user dont authorize
-        // if($agent === 'user'){
-        //     return 'not authorized';
-
-        // }else{
-
+       
             //return 'yeieeiie';
-             $events = DB::table('events')->where('user_id', $user->id)->get();
+             $events = DB::table('events')->where('user_id', $organizer->id)->get();
 
              return $events;
         }

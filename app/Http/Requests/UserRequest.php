@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -13,7 +14,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,10 +26,14 @@ class UserRequest extends FormRequest
     {
         return [
             //
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:users', 'string'],
-            'password' => ['min: 6', 'required', 'confirmed'],
-            'username' => ['required', 'string']
+            // 'name' => ['required', 'string'],
+            // 'email' => ['required', 'email', 'unique:users', 'string'],
+            // 'password' => ['min: 6', 'required', 'confirmed'],
+            // 'username' => ['required', 'string'],
+            // 'location' => [ 'string', Rule::when(true,['required',])],
+            // 'contact' => ['integer', 'min:10', Rule::when(true,['required',])],
+            // 'image' => [Rule::when(true,['required', 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',])],
+            // 'description' => ['string', Rule::when(true,['required',])]
         ];
     }
 }

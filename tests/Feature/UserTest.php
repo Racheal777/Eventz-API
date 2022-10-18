@@ -32,7 +32,7 @@ class UserTest extends TestCase
             'username' => fake()->userName(),
             'password' => 'password',
             'password_confirmation' => 'password',
-            'role' => fake()->randomElement(['user', 'admin'])
+            
             
         ];
 

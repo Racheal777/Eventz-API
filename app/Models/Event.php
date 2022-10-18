@@ -16,11 +16,18 @@ class Event extends Model
         'date',
         'time',
         'flier',
-        'organizer'
+        'organizer_id',
+        'published_at'
     ];
 
     //relationship
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function organizer(){
+        return $this->belongsTo(Organizer::class);
+    }
+
+    //describe the relationship
+    public function review()
+    {
+        return $this->morphOne(Review::class, 'reviewable');
     }
 }
