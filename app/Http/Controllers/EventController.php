@@ -53,7 +53,11 @@ class EventController extends Controller
         $event = new Event();
 
         //check the authenticated organizer
-        $organizer = auth()->user();
+        $user = auth()->user();
+
+        if(!$user->is_organizer){
+            return 'not organizer';
+        }
 
         //image upload 
         //using the image trait upload single which is a function that takes the file, path and filename
@@ -74,7 +78,7 @@ class EventController extends Controller
           $event->category = $request->input('category');
           $event->flier = $file;
          // $event->published = $request->input('published');
-          $event->organizer_id = $organizer->id;
+          $event->organizer_id = $user->id;
 
           if($event->save()){
             return $event;
@@ -123,11 +127,11 @@ class EventController extends Controller
 
 
 
-    public function byAdmin(Organizer $organizer)
+    public function byAdmin(User $user)
     {
        
             //return 'yeieeiie';
-             $events = DB::table('events')->where('user_id', $organizer->id)->get();
+             $events = DB::table('events')->where('user_id', $user->id)->get();
 
              return $events;
         }

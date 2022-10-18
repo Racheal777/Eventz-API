@@ -24,10 +24,10 @@ class EventTest extends TestCase
     public function test_creates_an_event()
     {
         //create the user
-        //$user = User::factory()->create();
-        $organizer = Organizer::factory()->create();
+        $user = User::factory()->create();
+        //$organizer = Organizer::factory()->create();
 
-        Passport::actingAs($organizer);
+        Passport::actingAs($user);
        // $agent = $user->role;
 
       
@@ -42,7 +42,7 @@ class EventTest extends TestCase
             'location' => 'Grand Arena',
             'category' => 'general',
             'flier' => fake()->image(),
-            'organizer_id' => $organizer
+            'organizer_id' => $user
 
         ];
 

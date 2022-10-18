@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    public function organizer()
+    {
+        return $this->hasOne(Organizer::class);
+    }
 }
