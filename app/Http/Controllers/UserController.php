@@ -7,6 +7,8 @@ use App\Models\Organizer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\OrganizerResource;
+use App\Http\Resources\UserResource;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,6 +18,7 @@ class UserController extends Controller
     //register function
     public function register(Request $request)
     {
+        //return User::find(24);
         $user = new User();
         $request->validate([
             'name' => ['required', 'string'],
@@ -71,14 +74,14 @@ class UserController extends Controller
 
         if ($request->is_organizer) {
             return response()->json([
-                'data' => $user,
+                'data' => new UserResource($user->refresh()),
                 'token' => $accessToken,
-                'organizer' => $organizer
+                //'organizer' => $organizer
 
             ]);
         } else {
             return response()->json([
-                'data' => $user,
+                'data' => new UserResource($user->refresh()),
                 'token' => $accessToken
             ]);
         };

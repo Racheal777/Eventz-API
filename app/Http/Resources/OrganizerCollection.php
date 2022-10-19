@@ -14,6 +14,9 @@ class OrganizerCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return 
+        [
+            'data' => OrganizerResource::collection($this->collection)
+        ];
     }
 }
