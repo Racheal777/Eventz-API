@@ -57,7 +57,9 @@ class UserController extends Controller
             $organizer->image = $file;
             $organizer->user_id = $user->id;
 
+            $user->update(['is_organizer' => $request->input('is_organizer')]);
             $organizer->save();
+
         }
 
         //if user is saved, create a token for them

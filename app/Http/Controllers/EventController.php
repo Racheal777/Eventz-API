@@ -47,7 +47,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EventRequest $request, User $user)
+    public function store(Request $request, User $user)
     {
         
         $event = new Event();
@@ -56,9 +56,12 @@ class EventController extends Controller
         $user = auth()->user();
 
         if(!$user->is_organizer){
-            return 'not organizer';
-        }
-
+            //return 'not organizer';
+            return response()->json([
+                'error' => 'user is not an organizer'
+               
+            ], 401);
+        }else{
         //image upload 
         //using the image trait upload single which is a function that takes the file, path and filename
       
@@ -85,9 +88,7 @@ class EventController extends Controller
           } else{
             return 'nothing saved';
           };
-
-        
-
+        }
     }
 
     /**
@@ -131,7 +132,8 @@ class EventController extends Controller
     {
        
             //return 'yeieeiie';
-             $events = DB::table('events')->where('user_id', $user->id)->get();
+             $user = auth()->user();
+             $events = DB::table('events')->where('organizer_id', $user->id)->get();
 
              return $events;
         }

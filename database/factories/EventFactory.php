@@ -25,7 +25,7 @@ class EventFactory extends Factory
             'location' => 'Grand Arena',
             'category' => fake()->randomElement(['entertainment', 'religious', 'educational', 'general']),
             'flier' => fake()->image(),
-            'organizer_id' =>Organizer::factory()
+            'organizer_id' =>User::factory()
         ];
     }
 }

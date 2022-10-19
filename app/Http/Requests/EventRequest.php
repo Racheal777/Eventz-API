@@ -30,7 +30,7 @@ class EventRequest extends FormRequest
             'category' => ['required'],
             'date' => ['required', 'date'],
             'time' => ['required', 'time'],
-            'organizer_id' => ['required'],
+            //'organizer_id' => ['required'],
             'flier' => ['required, image|mimes:jpg,png,jpeg,gif,svg|max:2048'],
         ];
     }
