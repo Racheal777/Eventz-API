@@ -18,7 +18,7 @@ class UserController extends Controller
     //register function
     public function register(Request $request)
     {
-        //return User::find(24);
+    
         $user = new User();
         $request->validate([
             'name' => ['required', 'string'],
@@ -32,7 +32,6 @@ class UserController extends Controller
             'description' => ['string', 'required_if:is_organizer,true']
         ]);
 
-        //$user = new User();
 
         $user->name = $request->input('name');
         $user->username = $request->input('username');

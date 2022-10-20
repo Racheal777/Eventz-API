@@ -56,12 +56,12 @@ class EventController extends Controller
         $user = auth()->user();
 
         if(!$user->is_organizer){
-            //return 'not organizer';
             return response()->json([
                 'error' => 'user is not an organizer'
                
             ], 401);
         }else{
+
         //image upload 
         //using the image trait upload single which is a function that takes the file, path and filename
       
@@ -80,7 +80,6 @@ class EventController extends Controller
           $event->time = $request->input('time');
           $event->category = $request->input('category');
           $event->flier = $file;
-         // $event->published = $request->input('published');
           $event->organizer_id = $user->id;
 
           if($event->save()){
