@@ -52,15 +52,19 @@ class SubscriberController extends Controller
 
         //return $subscriber;
 
-        $subscriber->save();
+        
 
         //add to the mailchimp
        
         if(Newsletter::isSubscribed($request->email)) {
-            return "user already subscribed";
+            return response()->json([
+                'message'=> "user already subscribed"
+            ], 401);
+            
         }else{
             Newsletter::subscribe($request->email, 
             ['FNAME'=>$request->firstname, 'LNAME'=>$request->lastname]);
+            $subscriber->save();
 
     
             return response()->json([
