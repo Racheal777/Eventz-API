@@ -91,6 +91,10 @@ class UserController extends Controller
     public function login(Request $request, User $user)
     {
 
+        $request->validate([
+            'email' => ['required', 'email', 'string'],
+            'password' => ['min: 6', 'required'],
+        ]);
 
         $loginDetails = [
             'email' => $request->email,

@@ -210,6 +210,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Newsletter' => 'Spatie\Newsletter\NewsletterFacade',
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

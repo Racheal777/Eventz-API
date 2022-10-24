@@ -148,4 +148,24 @@ class EventTest extends TestCase
 
 
     }
+
+
+    public function test_displays_all_events_to_happen_today()
+    {
+        $user = User::factory()->create();
+        Organizer::factory()->create();
+
+        Passport::actingAs($user);
+
+        Event::factory()->create([
+            'date' => '2022/10/24',
+        ]);
+
+        $response = $this->json('GET', route('events.daysEvent'));
+
+        $this->assertDatabaseCount('events', 1);
+        $response->assertStatus(200);
+
+
+    }
 }

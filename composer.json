@@ -11,6 +11,7 @@
         "laravel/passport": "^11.2",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "spatie/laravel-newsletter": "^4.11",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {

@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EventRequest;
+use App\Http\Resources\EventCollection;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -25,12 +26,7 @@ class EventController extends Controller
     {
         //display all events
         $events = Event::all();
-        // $carbon = new Carbon();
-        // $today=  $carbon::today();
-        // $events = DB::table('events')->where('date', $today)->get();
-
-        // $carbon = new Carbon();
-        // return $carbon::yesterday();
+       
         return $events;
     }
 
@@ -38,6 +34,17 @@ class EventController extends Controller
     public function daysEvent()
     {
 
+        //get todays event
+       // $events = Event::all();
+        
+        //get the date
+        $carbon = new Carbon();
+        $today = $carbon::today();
+
+        //get events that has todays date
+        $event = DB::table('events')->where('date',$today)->get();
+
+        return $event;
     }
 
     
@@ -47,7 +54,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(EventRequest $request, User $user)
     {
         
         $event = new Event();

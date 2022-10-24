@@ -29,9 +29,9 @@ class EventRequest extends FormRequest
             'location' => ['required', 'string'],
             'category' => ['required'],
             'date' => ['required', 'date'],
-            'time' => ['required', 'time'],
+            'time' => ['required'],
             //'organizer_id' => ['required'],
-            'flier' => ['required, image|mimes:jpg,png,jpeg,gif,svg|max:2048'],
+            //'flier' => ['required|image|size:1024'],
         ];
     }
 }

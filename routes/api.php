@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\OrganizerController;
-use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrganizerController;
+use App\Http\Controllers\SubcriberController;
+use App\Http\Controllers\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +41,7 @@ Route::post('users/login', [UserController::class, 'login'])->name('users.login'
 
 //organizer route
 Route::post('organizer/signup', [OrganizerController::class, 'created'])->name('organizer.created');
+
+
+//newsletter subscription
+Route::apiResource('newsletters', SubscriberController::class);
