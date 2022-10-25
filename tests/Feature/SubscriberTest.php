@@ -14,23 +14,20 @@ class SubscriberTest extends TestCase
      *
      * @return void
      */
+
+
     public function test_signs_a_user_to_newsletters()
     {
         $payload = [
-            "firstname" => "Alhassan",
-            "lastname" => "Yakubu",
-            "email"=> "alhassan@gmail.com"
+            "firstname" => "James",
+            "lastname" => "Kuranchie",
+            "email"=> "kuranchiejames@gmail.com"
         ];
-
-
         $response = $this->json('POST', route('newsletters.store'), $payload);
-
         $this->assertDatabaseCount('subscribers', 1);
         $this->assertDatabaseHas('subscribers', [
             'email' => $payload['email']
         ]);
-
-       
         $response
         ->assertStatus(200)
         ->assertJsonFragment([
@@ -40,12 +37,13 @@ class SubscriberTest extends TestCase
     }
 
 
+
     public function test_checks_if_a_user_has_subcribed_already()
     {
         $payload = [
-            "firstname" => "James",
-            "lastname" => "Kuranchie",
-            "email"=> "kuranchiejames@gmail.com"
+            "firstname" => "Alhassan",
+            "lastname" => "Yakubu",
+            "email"=> "alhassan@walulel.com"
         ];
 
 

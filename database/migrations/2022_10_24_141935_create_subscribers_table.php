@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
-            $table->enum('tags', ['customers', 'all', 'visitors',])->nullable();
+            $table->enum('tags', ['Customers', 'Medium Engagement', 'Visitor',])->nullable();
             $table->timestamps();
         });
     }

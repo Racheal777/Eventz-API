@@ -48,7 +48,7 @@ class SubscriberController extends Controller
         $subscriber->firstname = $request->input('firstname');
         $subscriber->lastname = $request->input('lastname');
         $subscriber->email = $request->input('email');
-        $subscriber->tags = 'all';
+        $subscriber->tags = 'Visitor';
 
         //return $subscriber;
 
@@ -63,7 +63,7 @@ class SubscriberController extends Controller
             
         }else{
             Newsletter::subscribe($request->email, 
-            ['FNAME'=>$request->firstname, 'LNAME'=>$request->lastname]);
+            ['FNAME'=>$request->firstname, 'LNAME'=>$request->lastname], 'subscribers',  ['tags' => ['Visitor', 'Visitor']]);
             $subscriber->save();
 
     
