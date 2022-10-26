@@ -30,6 +30,8 @@ Route::get('events', [EventController::class, 'allEvents'])->name('events.allEve
 
 Route::get('days', [EventController::class, 'daysEvent'])->name('events.daysEvent');
 
+Route::get('weeklyEvents', [EventController::class, 'weeklyEvents'])->name('events.weeklyEvents');
+
 Route::get('admin', [EventController::class, 'byAdmin'])->name('admin')->middleware('auth:api');
 
 

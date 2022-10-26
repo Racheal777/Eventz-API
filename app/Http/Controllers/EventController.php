@@ -47,6 +47,49 @@ class EventController extends Controller
         return $event;
     }
 
+
+    //function to display all events in a week
+    public function weeklyEvents()
+    {
+        
+        //create an empty array
+        //loop for the number of days in a week
+        // $name = [];
+        // $names = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        // for($i = 0; $i < count($names); $i++) {
+        //    $name[] = $i;
+            
+        // }
+
+        $allDays = [];
+        for($i = 0; $i < 7; $i++){
+            $allDays[] = Carbon::now()->addDays($i)->format('Y/M/d');   
+        }
+
+        $str = implode(',  ',  $allDays);
+
+        return $str;
+
+        $events = DB::table('events')->get();
+
+       // return $event;
+
+        foreach($events as $event){
+            $event = DB::table('events')->where('date', $allDays)->get();
+   
+            return  response()->json([
+                'Today' => $event
+            ]);
+        }
+        //$event = DB::table('events')->where('date',Carbon::now())->get();
+
+        return $event;
+
+
+
+    
+    }
+
     
     /**
      * Store a newly created resource in storage.

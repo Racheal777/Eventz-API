@@ -16,25 +16,25 @@ class SubscriberTest extends TestCase
      */
 
 
-    public function test_signs_a_user_to_newsletters()
-    {
-        $payload = [
-            "firstname" => "James",
-            "lastname" => "Kuranchie",
-            "email"=> "kuranchiejames@gmail.com"
-        ];
-        $response = $this->json('POST', route('newsletters.store'), $payload);
-        $this->assertDatabaseCount('subscribers', 1);
-        $this->assertDatabaseHas('subscribers', [
-            'email' => $payload['email']
-        ]);
-        $response
-        ->assertStatus(200)
-        ->assertJsonFragment([
-            'email' => $payload['email']
-        ]);
+    // public function test_signs_a_user_to_newsletters()
+    // {
+    //     $payload = [
+    //         "firstname" => "James",
+    //         "lastname" => "Kuranchie",
+    //         "email"=> "kuranchiejames@gmail.com"
+    //     ];
+    //     $response = $this->json('POST', route('newsletters.store'), $payload);
+    //     $this->assertDatabaseCount('subscribers', 1);
+    //     $this->assertDatabaseHas('subscribers', [
+    //         'email' => $payload['email']
+    //     ]);
+    //     $response
+    //     ->assertStatus(200)
+    //     ->assertJsonFragment([
+    //         'email' => $payload['email']
+    //     ]);
         
-    }
+    // }
 
 
 
