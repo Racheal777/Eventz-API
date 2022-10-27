@@ -11,6 +11,7 @@ use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EventRequest;
 use App\Http\Resources\EventCollection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -26,8 +27,25 @@ class EventController extends Controller
     {
         //display all events
         $events = Event::all();
-       
+
+        //cache the data from the database
+
+        //$value = Cache::store('file')->get('foo');
+       $cached = Cache::store('file')->put( 'events', $events, 600);
+
+       //if data is cached, return the cached data else return from the database
+       if($cached){
+        $value = Cache::get('events');
+
+        return $value;
+       }else{
         return $events;
+       }
+       
+       
+       
+        //return $cachedItem;
+        //return $events;
     }
 
 

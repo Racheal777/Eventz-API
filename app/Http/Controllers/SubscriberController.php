@@ -5,17 +5,13 @@ namespace App\Http\Controllers;
 //use App\Models\Subcriber;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
-// use Spatie\Newsletter\Newsletter;
-// use Spatie\Newsletter\NewsletterFacade;
-use Spatie\Newsletter\NewsletterFacade as Newsletter;
-//use Spatie\Newsletter\Newsletter;
-//use \Newsletter\Newsletter;
 
+use Spatie\Newsletter\NewsletterFacade as Newsletter;
 
 
 class SubscriberController extends Controller
 {
-    // use Newsletter;
+    
     /**
      * Display a listing of the resource.
      *
