@@ -37,11 +37,22 @@ class EventController extends Controller
        if($cached){
         $value = Cache::get('events');
 
-        return $value;
+        return response()->json([
+            'cached data' => $value
+        ]) ;
        }else{
         return $events;
        }
        
+    //if item is not cached, remember to cach it and return it
+    // 'events is the key, 400 is the seconds
+    //    $value = Cache::remember('events', 400, function () {
+    //     DB::table('events')->get();
+
+       
+    // });
+
+    // return $value;
        
        
         //return $cachedItem;
