@@ -17,6 +17,14 @@ class SubscriberTest extends TestCase
      * @return void
      */
 
+    //  protected function setup():void
+    //  {
+    //     parent::setup();
+
+    //     Newsletter::fake();
+
+    //  }
+
 
     // public function test_signs_a_user_to_newsletters()
     // {
@@ -29,10 +37,12 @@ class SubscriberTest extends TestCase
         
     //     $response = $this->json('POST', route('newsletters.store'), $payload);
     //     $response->assertStatus(200);
-    //     Newsletter::shouldReceive('post')
-    //     ->once()
-    //     ->with($payload)
-    //     ->andReturn([]);
+
+        
+    //     // Newsletter::shouldReceive('post')
+    //     // ->once()
+    //     // ->with($payload)
+    //     // ->andReturn([]);
 
     //     //$this->assertDatabaseCount('subscribers', 1);
     //     // $this->assertDatabaseHas('subscribers', [

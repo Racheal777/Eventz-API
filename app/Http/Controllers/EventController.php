@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EventRequest;
 use App\Http\Resources\EventCollection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -25,12 +26,48 @@ class EventController extends Controller
      */
     public function allEvents()
     {
+
+        //Encrtption
+        // $token = Crypt::encryptString('racheal');
+
+        // $decripted = Crypt::decryptString($token);
+
+        // return response()->json([
+        //     'crypted' => $token,
+        //     'decrypted' => $decripted
+        // ]);
+
+    //     $event = '';
+    //     $events = DB::table('events')->pluck('date');
+
+    //     foreach($events as $event){   
+    //     }
+
+    //     $allDays = [];
+    //     for($i = 0; $i < 7; $i++){
+    //         $allDays[] = Carbon::now()->addDays($i)->format('Y/M/d');   
+    //     }
+
+    //     $str = implode(',  ',  $allDays);
+
+    //     if(in_array($event, $allDays)){
+    //         return $event;
+    //     }else{
+    //         return 'not found';
+    //     }
+    //    // return $str;
+    //     return $events;
+
+        // $events = DB::table('events')->orderBy('date')->lazy()->count();
+
+        // return $events;
+
+
+
         //display all events
         $events = Event::all();
 
         //cache the data from the database
-
-        //$value = Cache::store('file')->get('foo');
        $cached = Cache::store('file')->put( 'events', $events, 600);
 
        //if data is cached, return the cached data else return from the database
@@ -44,19 +81,7 @@ class EventController extends Controller
         return $events;
        }
        
-    //if item is not cached, remember to cach it and return it
-    // 'events is the key, 400 is the seconds
-    //    $value = Cache::remember('events', 400, function () {
-    //     DB::table('events')->get();
 
-       
-    // });
-
-    // return $value;
-       
-       
-        //return $cachedItem;
-        //return $events;
     }
 
 
