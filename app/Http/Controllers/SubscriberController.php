@@ -67,9 +67,7 @@ class SubscriberController extends Controller
                 'message' => "email subscribed",
                 'data' => $subscriber
             ]);
-        };
-
-       
+        };  
 
     }
 
