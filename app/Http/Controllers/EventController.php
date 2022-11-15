@@ -95,10 +95,14 @@ class EventController extends Controller
 
          if(count($event) === 0){
             $event = DB::table('events')->where('date', Carbon::now()->format('Y-m-d'))->get();
-            return $event;
+            return response()->json([
+                'data' => $event
+            ]);
          }
 
-         return $event;
+         return response()->json([
+            'data' => $event
+        ]);
     }
 
 

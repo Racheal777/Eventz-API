@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Event;
 use App\Models\Organizer;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Passport\Passport;
@@ -157,17 +158,56 @@ class EventTest extends TestCase
 
         Passport::actingAs($user);
 
-        $today = '2022-11-15';
-
+       
         Event::factory()->create([
-            'date' => '2022/11/15',
+            'date' => Carbon::now()->format('Y-m-d'),
         ]);
 
-        $response = $this->json('GET', route('events.daysEvent', $today));
+        Event::factory()->create([
+            'date' => '2022/11/18',
+        ]);
 
-        $this->assertDatabaseCount('events', 1);
-        $response->assertStatus(200);
+        $response = $this->json('GET', route('events.daysEvent'), ['date' => '2022-11-17']);
+
+        // dd($response);
+
+        $this->assertDatabaseCount('events', 2);
+        $response->assertStatus(200)
+        ->assertJsonCount(1, 'data');
+
+
+    }
+
+
+    public function test_checks_if_events_displayed_is_today()
+    {
+        $user = User::factory()->create();
+        Organizer::factory()->create();
+
+        Passport::actingAs($user);
+
+       
+        Event::factory()->create([
+            'date' => Carbon::now()->format('Y-m-d'),
+        ]);
+
+        Event::factory()->create([
+            'date' => '2022/11/18',
+        ]);
+
+        $response = $this->json('GET', route('events.daysEvent'), ['date' => '2022-11-17']);
+
+        // dd($response);
+
+        $this->assertDatabaseCount('events', 2);
+        $response->assertStatus(200)
+        ->assertJsonCount(1, 'data')
+        ->assertJsonFragment([
+            'date' => Carbon::now()->format('Y-m-d')
+        ]);
 
 
     }
 }
+
+
