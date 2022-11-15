@@ -85,62 +85,57 @@ class EventController extends Controller
     }
 
 
-    public function daysEvent()
+    public function daysEvent(Request $request)
     {
-
-        //get todays event
-       // $events = Event::all();
-        
-        //get the date
-        $carbon = new Carbon();
-        $today = $carbon::today();
-
+        $filter = $request->input('date');
+       
+       
         //get events that has todays date
-        $event = DB::table('events')->where('date',$today)->get();
+         $event = DB::table('events')->where('date', $filter)->get();
 
-        return $event;
+         if(count($event) === 0){
+            $event = DB::table('events')->where('date', Carbon::now()->format('Y-m-d'))->get();
+            return $event;
+         }
+
+         return $event;
     }
 
+
+   
 
     //function to display all events in a week
     public function weeklyEvents()
     {
-        
-        //create an empty array
-        //loop for the number of days in a week
-        // $name = [];
-        // $names = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-        // for($i = 0; $i < count($names); $i++) {
-        //    $name[] = $i;
-            
-        // }
+
 
         $allDays = [];
         for($i = 0; $i < 7; $i++){
-            $allDays[] = Carbon::now()->addDays($i)->format('Y/M/d');   
+            $allDays[] = Carbon::now()->addDays($i)->format('Y-m-d');   
         }
 
         $str = implode(',  ',  $allDays);
 
-        return $str;
+        //return $allDays;
+      
+        $events = DB::table('events')->pluck('date');
+  //return $events;
 
-        $events = DB::table('events')->get();
-
-       // return $event;
-
-        foreach($events as $event){
-            $event = DB::table('events')->where('date', $allDays)->get();
-   
-            return  response()->json([
-                'Today' => $event
-            ]);
+        $array = (array) $events;
+        foreach($array as $num) {
+           
+           $results = array_intersect($num, $allDays);
+                foreach($results as $result){
+                   
+                    
+                    $recentEvent = Event::whereIn('date', $results)->orderBy('date')->get();
+                    return response()->json([
+                        'weeklyEvents' => $recentEvent
+                    ]);
+                }
+           return $results;
+            
         }
-        //$event = DB::table('events')->where('date',Carbon::now())->get();
-
-        return $event;
-
-
-
     
     }
 

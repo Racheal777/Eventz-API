@@ -157,11 +157,13 @@ class EventTest extends TestCase
 
         Passport::actingAs($user);
 
+        $today = '2022-11-15';
+
         Event::factory()->create([
-            'date' => '2022/10/24',
+            'date' => '2022/11/15',
         ]);
 
-        $response = $this->json('GET', route('events.daysEvent'));
+        $response = $this->json('GET', route('events.daysEvent', $today));
 
         $this->assertDatabaseCount('events', 1);
         $response->assertStatus(200);
