@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Event;
+use App\Models\Favorite;
 use Tests\TestCase;
 use App\Models\User;
 use Laravel\Passport\Passport;
@@ -70,10 +72,6 @@ class UserTest extends TestCase
         $this->actingAs($user);
         $response = $this->json('POST',  route('users.login'), $payload);
 
-        //dd($response);
-
-        //dd($response);
-
         $this->assertDatabaseCount('users', 1);
         $this->assertDatabaseHas('users', [
             'email' => $payload['email']
@@ -88,4 +86,32 @@ class UserTest extends TestCase
 
 
     }
+
+    //not working
+
+    // public function test_display_a_user()
+    // {
+    //     //create the user
+    //     $user = User::factory()->create();
+
+    //     Event::factory()->create();
+    //     Favorite::factory()->create([
+    //         "user_id" => $user->id
+    //     ]);
+
+
+    //     $this->actingAs($user);
+    //     $response = $this->json('GET',  route('user'));
+
+    //     //$this->assertDatabaseCount('users', 1);
+        
+
+       
+    //     $response
+    //     ->assertStatus(200)
+    //     ->assertJsonCount(1, 'data')
+    //     ;
+
+
+    // }
 }

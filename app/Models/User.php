@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Organizer::class);
     }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }

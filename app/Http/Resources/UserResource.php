@@ -14,6 +14,8 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $favorite = new FavoriteCollection($this->favorites);
         return 
         [
             'id' => $this->id,
@@ -25,7 +27,8 @@ class UserResource extends JsonResource
             'location' => $this->is_organizer ? $this->organizer->location : null,
             'contact' => $this->is_organizer ? $this->organizer->contact : null,
             'description' => $this->is_organizer ? $this->organizer->description : null,
-
+            "Favorites" => $favorite,
+             'reviews' => $this->reviews,
         ];
     }
 }

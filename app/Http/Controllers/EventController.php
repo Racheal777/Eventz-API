@@ -111,26 +111,20 @@ class EventController extends Controller
     //function to display all events in a week
     public function weeklyEvents()
     {
-
-
         $allDays = [];
         for($i = 0; $i < 7; $i++){
             $allDays[] = Carbon::now()->addDays($i)->format('Y-m-d');   
         }
 
         $str = implode(',  ',  $allDays);
-
-        //return $allDays;
       
         $events = DB::table('events')->pluck('date');
-  //return $events;
 
         $array = (array) $events;
         foreach($array as $num) {
            
            $results = array_intersect($num, $allDays);
-                foreach($results as $result){
-                   
+                foreach($results as $result){ 
                     
                     $recentEvent = Event::whereIn('date', $results)->orderBy('date')->get();
                     return response()->json([
@@ -192,6 +186,29 @@ class EventController extends Controller
           };
         }
     }
+
+
+    /**
+     *  Display Events based on categories
+     * @param string $category
+     */
+
+
+     public function eventsBaseOnCategory(Request $request)
+     {
+        $category = $request->input('category');
+        $event = DB::table('events')->where('category', $category)->orderBy('date')->orderBy('time')->get();
+
+        if(count($event) === 0){
+            return response()->json([
+                'message' => 'No event available'
+            ]);
+        }
+
+        return response()->json([
+            'data' => $event
+        ]);
+     }
 
     /**
      * Display the specified resource.

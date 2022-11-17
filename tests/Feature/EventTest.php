@@ -79,18 +79,9 @@ class EventTest extends TestCase
             'organizer_id' => $user
 
         ];
-
-
-        //response
         $response = $this->json('POST', route('events.store'), $payload);
 
-       // dd($response);
-        
         $this->assertDatabaseCount('events', 0);
-
-        // $this->assertDatabaseHas('events', [
-        //     'name'=> 'VGMA'
-        // ]);
 
         $response
         ->assertStatus(401)
@@ -208,6 +199,53 @@ class EventTest extends TestCase
 
 
     }
+
+
+    public function test_displays_events_based_on_category()
+    {
+        $user = User::factory()->create();
+        Organizer::factory()->create();
+        Passport::actingAs($user);
+        Event::factory()->create([
+            'category' => 'educational',
+        ]);
+
+        Event::factory()->create([
+            'category' => 'general',
+        ]);
+
+        $response = $this->json('GET', route('bycategory'), ['category' => 'general']);
+
+        $this->assertDatabaseCount('events', 2);
+        $response->assertStatus(200)
+        ->assertJsonCount(1, 'data');
+
+
+    }
+
+
+    public function test_displays_no_event_when_category_has_no_event()
+    {
+        $user = User::factory()->create();
+        Organizer::factory()->create();
+        Passport::actingAs($user);
+        Event::factory()->create([
+            'category' => 'educational',
+        ]);
+
+        Event::factory()->create([
+            'category' => 'general',
+        ]);
+
+        $response = $this->json('GET', route('bycategory'), ['category' => 'religious']);
+
+        $this->assertDatabaseCount('events', 2);
+        $response->assertStatus(200)
+       ;
+
+
+    }
+
 }
 
 

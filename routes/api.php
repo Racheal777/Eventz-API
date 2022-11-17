@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\SubcriberController;
 use App\Http\Controllers\SubscriberController;
@@ -34,11 +35,15 @@ Route::get('weeklyEvents', [EventController::class, 'weeklyEvents'])->name('even
 
 Route::get('admin', [EventController::class, 'byAdmin'])->name('admin')->middleware('auth:api');
 
+Route::get('bycategory', [EventController::class, 'eventsBaseOnCategory'])->name('bycategory');
+
 
 //users route
 Route::post('users/signup', [UserController::class, 'register'])->name('users.register');
 
 Route::post('users/login', [UserController::class, 'login'])->name('users.login');
+
+Route::get('user', [UserController::class, "getUser"])->name('user')->middleware('auth:api');
 
 
 //organizer route
@@ -47,3 +52,7 @@ Route::post('organizer/signup', [OrganizerController::class, 'created'])->name('
 
 //newsletter subscription
 Route::apiResource('newsletters', SubscriberController::class);
+
+
+//favorite routes
+Route::apiResource('favorite', FavoriteController::class)->middleware('auth:api');

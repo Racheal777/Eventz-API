@@ -122,4 +122,17 @@ class UserController extends Controller
             ]);
         }
     }
+
+
+    //show user with favorites and reviews
+
+    public function getUser()
+    {
+        $user = auth()->user();
+
+       
+        return response()->json([
+            'data' => new UserResource( $user)
+        ]);
+    }
 }

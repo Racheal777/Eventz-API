@@ -30,4 +30,8 @@ class Event extends Model
     {
         return $this->morphOne(Review::class, 'reviewable');
     }
+
+    public function favorites(){
+        return $this->hasMany(Favorite::class);
+    }
 }
