@@ -1,0 +1,541 @@
+openapi: 3.0.0
+info:
+  title: Events  API
+  description: Events API  Application built by Racheal Kuranchie
+  contact:
+   name: Racheal Kuranchie
+   url: https://linktr.ee/rachealkuranchie
+  version: 1.0.0  
+servers:
+ - url: http://127.0.0.1:8000/api
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - BearerAuth: []
+tags:
+- name: Events
+  description: Everything about Events happening aroud you
+- name: User
+  description: Everything about the Users
+- name: Review
+  description: Everything about your User's Reviews
+- name: Favorite
+  description: Everything about your User's Favorites
+paths:
+   /events:
+    description: Event resource
+    get:
+     tags:
+      - Events
+     description: Operation to fetch all events data
+     responses:  
+      200:  
+        description: Successful Response 
+        content:   
+          application/json:  
+           schema:  
+            type: array 
+            items: 
+             properties:
+              eventId:
+               type: integer
+               example: 1
+              name:
+               type: string
+               example: The Vodafone Ghana Music Awards
+              location: 
+               type: string
+               example: Grand Arena
+              date:
+               type: string
+               example: 2022-10-12
+              category:
+               type: string
+               example:  general
+              time:
+               type: string
+               example: 22:00:00
+              flier:
+               type: string
+               example: public/uploads/1340752075.jpg
+              organizer_id:
+               type: integer
+               example: 10
+              published_at:
+               type: string
+               example: null
+    post:
+      tags:
+      - Events
+      description: Operation to add a new Event data
+      requestBody: 
+       content:
+         application/json:
+          schema:
+           type: object
+           properties:
+            name:
+               type: string
+               example: Ghana Music Awards
+            location: 
+               type: string
+               example: Grand Arena
+            date:
+               type: string
+               example: 2022-10-21
+            category:
+               type: string
+               example:  general
+            time:
+               type: string
+               example: 22:00:00
+            flier:
+               type: string
+               example: public/uploads/1340752075.jpg
+      responses:  
+        201:  
+          description: Record successfully added  
+   /admin: 
+    description: Events resource
+    get:
+     tags:
+      - Events
+     description: Operation to display an organizer's Events data
+     responses:  
+      200:  
+        description: Successful Response  
+        content:   
+          application/json:  
+           schema:  
+            type: array 
+            items: 
+             properties:
+              eventId:
+               type: integer
+               example: 1
+              name:
+               type: string
+               example: The Vodafone Ghana Music Awards
+              location: 
+               type: string
+               example: Grand Arena
+              date:
+               type: string
+               example: 2022-10-12
+              category:
+               type: string
+               example:  general
+              time:
+               type: string
+               example: 22:00:00
+              flier:
+               type: string
+               example: public/uploads/1340752075.jpg
+              organizer_id:
+               type: integer
+               example: 10
+              published_at:
+               type: string
+               example: null
+   /events{id}: 
+    description: Events resource
+    put:
+      tags:
+      - Events
+      description: Operation to update an Events data
+      parameters:  
+      - in: path
+        name: id
+        required: true  
+        schema :
+         type : integer
+         example : 1
+      requestBody: 
+       content:
+         application/json:
+          schema:
+           type: object
+           properties:
+            Event_id:
+             type: integer
+             example: 1
+            name:
+               type: string
+               example: The Vodafone Ghana Music Awards
+      responses:  
+        201:  
+          description: Record successfully updated
+    delete:
+      tags:
+      - Events
+      description: Operation to delete event data
+      parameters:  
+      - in: path
+        name: id
+        required: true  
+        schema :
+         type : integer
+         example : 1
+      responses:  
+        201:  
+          description: Record successfully deleted
+   /weeklyEvents: 
+    description: Weekly Events Resource
+    get:
+     tags:
+      - Events
+     description: Operation to fetch weekly events 
+     responses:  
+      200:  
+        description: Successful Response  
+        content:   
+          application/json:  
+           schema:  
+            type: array 
+            items: 
+             properties:
+              Restaurant ID:
+               type: integer
+               example: 1
+              name:
+               type: string
+               example: The Vodafone Ghana Music Awards
+              location: 
+               type: string
+               example: Grand Arena
+              date:
+               type: string
+               example: 2022-10-12
+              category:
+               type: string
+               example:  general
+              time:
+               type: string
+               example: 22:00:00
+              flier:
+               type: string
+               example: public/uploads/1340752075.jpg
+              organizer_id:
+               type: integer
+               example: 10
+              published_at:
+               type: string
+               example: null
+   /days: 
+    description: Day Events Resource
+    get:
+     tags:
+      - Events
+     description: Operation to fetch the Day's events 
+     parameters:  
+      - in: query
+        name: date
+        schema :
+         type : string
+         example : 2022-11-18
+     responses:  
+      200:  
+        description: Successful Response  
+        content:   
+          application/json:  
+           schema:  
+            type: array 
+            items: 
+             properties:
+              Restaurant ID:
+               type: integer
+               example: 1
+              name:
+               type: string
+               example: The Vodafone Ghana Music Awards
+              location: 
+               type: string
+               example: Grand Arena
+              date:
+               type: string
+               example: 2022-10-12
+              category:
+               type: string
+               example:  general
+              time:
+               type: string
+               example: 22:00:00
+              flier:
+               type: string
+               example: public/uploads/1340752075.jpg
+              organizer_id:
+               type: integer
+               example: 10
+              published_at:
+               type: string
+               example: null
+              
+   /bycategory: 
+    description: Events based on Categorr Resource
+    get:
+     tags:
+      - Events
+     description: Operation to fetch an event based on category
+     parameters:  
+      - in: query
+        name: category
+        schema :
+         type : string
+         example : general
+     responses:  
+      200:  
+        description: Successful Response  
+        content:   
+          application/json:  
+           schema:  
+            type: array 
+            items: 
+             properties:
+              Restaurant ID:
+               type: integer
+               example: 1
+              name:
+               type: string
+               example: The Vodafone Ghana Music Awards
+              location: 
+               type: string
+               example: Grand Arena
+              date:
+               type: string
+               example: 2022-10-12
+              category:
+               type: string
+               example:  general
+              time:
+               type: string
+               example: 22:00:00
+              flier:
+               type: string
+               example: public/uploads/1340752075.jpg
+              organizer_id:
+               type: integer
+               example: 10
+              published_at:
+               type: string
+               example: null
+   /users/signup:
+    description: Users resource
+    post:
+     tags:
+      - User
+     description: Operation to add a users data
+     requestBody: 
+       content:
+         application/json:
+          schema:
+           type: object
+           properties:
+            name:
+             type: string
+             example: John Doe
+            username:
+             type: string
+             example: john2020
+            email:
+             type: string
+             example: johndoe@gmail.com
+            password:
+             type: string
+             example: password123
+            password_confirmation: 
+             type: string
+             example: password123
+     responses:  
+        201:  
+          description: Record successfully added
+        400: 
+           description: BadRequest
+        401: 
+          description: Unauthorized
+        403: 
+          description: Forbidden
+        404: 
+          description: NotFound
+        500: 
+          description: InternalServerError,
+   /users/login:
+    description: Users resource
+    post:
+     tags:
+      - User
+     description: Operation to log a user to the app
+     requestBody: 
+       content:
+         application/json:
+          schema:
+           type: object
+           properties:
+            email:
+             type: string
+             example: johndoe@gmail.com
+            password:
+             type: string
+             example: password123
+     responses:  
+        200:  
+          description: User has been successfully loggedin
+        400:
+          description: Invalid username/password supplied
+   /user/logout:
+    description: User Logout
+    get:
+     tags:
+      - User
+     description: Operation to logout a user
+     parameters:  
+      - in: query
+        name: user_id
+        required: true  
+        schema :
+         type : integer
+         example : 1
+     responses:  
+      200:  
+        description: Successful Response 
+   /user:
+    description: User resource
+    get:
+     tags:
+      - User
+     description: Operation to fetch a user with their reviews and favorites
+     responses:  
+      200:  
+        description: Successful Response  
+        content:
+          application/json:  
+           schema:  
+            type: array 
+            items: 
+             properties:
+              User_id:
+               type: integer
+               example: 1
+              name:
+               type: string
+               example: John Doe
+              username:
+               type: string
+               example: john2020
+              email:
+               type: string
+               example: johndoe@gmail.com
+              reviews:
+               type: array
+               example : []
+              favorites: 
+               type: array
+               example: []
+   /reviews:
+    description: Reviews resource
+    post:
+     tags:
+      - Review
+     description: Operation to add a users review to an event
+     requestBody: 
+       content:
+         application/json:
+          schema:
+           type: object
+           properties:
+            coment:
+             type: string
+             example: Great food, good customer serviice
+            ratings:
+             type: integer
+             example: 5
+            restaurant_id:
+             type: integer
+             example: 1
+     responses:  
+        201:  
+          description: Record successfully added
+    put:
+     tags:
+      - Review
+     description: Operation to update a users review to a restaurant
+     parameters:  
+      - in: query
+        name: review_id
+        required: true  
+        schema :
+         type : integer
+         example : 1
+     requestBody: 
+       content:
+         application/json:
+          schema:
+           type: object
+           properties:
+            coment:
+             type: string
+             example: Great food, good customer serviice
+            ratings:
+             type: integer
+             example: 4
+            restaurant_id:
+             type: integer
+             example: 1
+     responses:  
+        200:  
+          description: Record successfully updated
+    delete:
+      tags:
+      - Review
+      description: Operation to delete a Review
+      parameters:  
+      - in: query
+        name: review_id
+        required: true  
+        schema :
+         type : integer
+         example : 1
+      responses:  
+        200:  
+          description: Record successfully deleted
+   /favorite:
+    description: Favorite resource
+    post:
+     tags:
+      - Favorite
+     description: Operation to add an event as favorite
+     requestBody: 
+       content:
+         application/json:
+          schema:
+           type: object
+           properties:
+            event_id:
+             type: integer
+             example: 1
+     responses:  
+        201:  
+          description: Record successfully added
+    delete:
+      tags:
+      - Favorite
+      description: Operation to delete a favorite
+      parameters:  
+      - in: query
+        name: favorite_id
+        required: true  
+        schema :
+         type : integer
+         example : 1
+      responses:  
+        200:  
+          description: Record successfully deleted
+   
+
+
+
+
+ 
+   

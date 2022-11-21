@@ -136,4 +136,28 @@ class UserController extends Controller
             'data' => new UserResource1( $user)
         ]);
     }
+
+
+    //logout function
+    public function logout()
+    {
+        $user = auth()->user();
+
+         //get the token and save it in a variable
+       
+       $token = $user->token();
+
+       //return $token;
+//if you find the user, revoke the token
+       if($user){
+        $token->revoke();
+        return response()->json([
+            "message" =>  "Successfully logged out ",
+           
+        ]);
+
+       }else{
+        return "user not found";
+       }
+    }
 }

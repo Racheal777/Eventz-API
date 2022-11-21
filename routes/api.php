@@ -45,6 +45,8 @@ Route::post('users/login', [UserController::class, 'login'])->name('users.login'
 
 Route::get('user', [UserController::class, "getUser"])->name('user')->middleware('auth:api');
 
+Route::get('user/logout', [UserController::class, 'logout'])->name('logout')->middleware('auth:api');
+
 
 //organizer route
 Route::post('organizer/signup', [OrganizerController::class, 'created'])->name('organizer.created');
