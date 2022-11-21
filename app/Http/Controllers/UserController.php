@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\OrganizerResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResource1;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Support\Facades\Hash;
 
@@ -132,7 +133,7 @@ class UserController extends Controller
 
        
         return response()->json([
-            'data' => new UserResource( $user)
+            'data' => new UserResource1( $user)
         ]);
     }
 }

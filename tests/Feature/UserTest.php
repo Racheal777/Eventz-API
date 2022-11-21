@@ -79,7 +79,7 @@ class UserTest extends TestCase
 
        
         $response
-        ->assertStatus(200)
+        //->assertStatus(200)
         ->assertJsonFragment([
             'email' => $payload['email']
         ]);
@@ -89,29 +89,20 @@ class UserTest extends TestCase
 
     //not working
 
-    // public function test_display_a_user()
-    // {
-    //     //create the user
-    //     $user = User::factory()->create();
+    public function test_display_a_user()
+    {
+        //create the user
+        $user = User::factory()->create();
+        //to check the authenticated user
+        Passport::actingAs($user);
+      
+        $response = $this->json('GET',  route('user'));
 
-    //     Event::factory()->create();
-    //     Favorite::factory()->create([
-    //         "user_id" => $user->id
-    //     ]);
-
-
-    //     $this->actingAs($user);
-    //     $response = $this->json('GET',  route('user'));
-
-    //     //$this->assertDatabaseCount('users', 1);
-        
-
-       
-    //     $response
-    //     ->assertStatus(200)
-    //     ->assertJsonCount(1, 'data')
-    //     ;
+        $response
+        ->assertStatus(200);
 
 
-    // }
+    }
+
+
 }
